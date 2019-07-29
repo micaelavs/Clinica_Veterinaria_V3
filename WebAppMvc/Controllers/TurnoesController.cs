@@ -64,7 +64,7 @@ namespace WebAppMvc.Controllers
 
             if (turnoBuscado.Any())
             {
-                ViewBag.Mensaje = "El turno ya fue seleccionado, seleccione otro diferente";
+                ViewBag.Mensaje = "El turno ya fue seleccionado, seleccione otras opciones";
 
                 ViewBag.IdDoctor = new SelectList(db.Doctors, "Id", "Name", turno.IdDoctor);
                 ViewBag.IdPaciente = new SelectList(db.Patients, "Id", "Name", turno.IdPaciente);
