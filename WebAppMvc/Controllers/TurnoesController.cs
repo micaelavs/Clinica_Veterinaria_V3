@@ -51,14 +51,32 @@ namespace WebAppMvc.Controllers
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,TipoEspecialidad,Fecha,IdPaciente,IdSala,IdDoctor,Hora")] Turno turno)
-        {   
-            //todas las opciones están ocupadas
+        public ActionResult Create([Bind(Include = "Id,TipoEspecialidad,Estado,Fecha,IdPaciente,IdSala,IdDoctor,Hora")] Turno turno)
+        {
+
+            //buscar en la base de ese paciente, cliente si tiene un turno activo, si lo tiene no podrá elegir otro
+            //hasta cancelar dicho turno
+            var turnoYaExistente = from t in db.Turnos
+                                   where t.IdPaciente == turno.IdPaciente &&
+                                   t.TipoEspecialidad == turno.TipoEspecialidad &&
+                                   t.Estado == SharedKernel.Estado.Activo
+                                   select t;
+            if (turnoYaExistente.Any())
+            {
+                ViewBag.Mensaje = "El paciente ya tiene un turno pendiente para esa especialidad, para seleccionar otro debe cancelar dicho turno";
+
+                ViewBag.IdDoctor = new SelectList(db.Doctors, "Id", "Name", turno.IdDoctor);
+                ViewBag.IdPaciente = new SelectList(db.Patients, "Id", "Name", turno.IdPaciente);
+                ViewBag.IdSala = new SelectList(db.Rooms, "Id", "Name", turno.IdSala);
+                return View(turno);
+            }
+
+            //busco del turno seleccionado en la base si coinciden todas las opciones
             var turnoBuscado = from t in db.Turnos
                                where t.IdPaciente == turno.IdPaciente &&
                                t.IdSala == turno.IdSala &&
                                t.IdDoctor == turno.IdDoctor &&
-                               t.TipoEspecialidad == turno.TipoEspecialidad &&
+                               t.TipoEspecialidad == turno.TipoEspecialidad && t.Estado == turno.Estado &&
                                t.Fecha == t.Fecha && t.Hora == turno.Hora
                                select t;
 
@@ -112,7 +130,7 @@ namespace WebAppMvc.Controllers
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,TipoEspecialidad,Fecha,IdPaciente,IdSala,IdDoctor,Hora")] Turno turno)
+        public ActionResult Edit([Bind(Include = "Id,TipoEspecialidad,Estado,Fecha,IdPaciente,IdSala,IdDoctor,Hora")] Turno turno)
         {
             if (ModelState.IsValid)
             {

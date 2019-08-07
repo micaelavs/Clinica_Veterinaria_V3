@@ -13,6 +13,7 @@ namespace WebAppMvc.Models
     {
         public int Id { get; set; }
         public SharedKernel.TipoEspecialidad TipoEspecialidad { get; set; }
+        public SharedKernel.Estado Estado { get; set; }
         public DateTime Fecha { get; set; }
         public int IdPaciente { get; set; }
         public int IdSala { get; set; }
@@ -58,6 +59,9 @@ namespace WebAppMvc.Models
 
             [Required]
             public SharedKernel.TipoEspecialidad TipoEspecialidad { get; set; }
+
+            [Required]
+            public SharedKernel.Estado Estado { get; set; }
 
         }
     }

@@ -151,33 +151,9 @@
     </Compile>
     <Compile Include="Interfaces\IEntity.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
-    <Compile Include="Migrations\201906062309012_Initial-Create.cs" />
-    <Compile Include="Migrations\201906062309012_Initial-Create.Designer.cs">
-      <DependentUpon>201906062309012_Initial-Create.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201906070106388_AddRoomMetada.cs" />
-    <Compile Include="Migrations\201906070106388_AddRoomMetada.Designer.cs">
-      <DependentUpon>201906070106388_AddRoomMetada.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201906211330260_Initial-Create2.cs" />
-    <Compile Include="Migrations\201906211330260_Initial-Create2.Designer.cs">
-      <DependentUpon>201906211330260_Initial-Create2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201906211856013_Initial-Create3.cs" />
-    <Compile Include="Migrations\201906211856013_Initial-Create3.Designer.cs">
-      <DependentUpon>201906211856013_Initial-Create3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201906211934576_Initial-Create4.cs" />
-    <Compile Include="Migrations\201906211934576_Initial-Create4.Designer.cs">
-      <DependentUpon>201906211934576_Initial-Create4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201907181808512_Initial_Create_turnos.cs" />
-    <Compile Include="Migrations\201907181808512_Initial_Create_turnos.Designer.cs">
-      <DependentUpon>201907181808512_Initial_Create_turnos.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201907182324491_Initial_create_factura.cs" />
-    <Compile Include="Migrations\201907182324491_Initial_create_factura.Designer.cs">
-      <DependentUpon>201907182324491_Initial_create_factura.cs</DependentUpon>
+    <Compile Include="Migrations\201908062247559_Initial_create_tables.cs" />
+    <Compile Include="Migrations\201908062247559_Initial_create_tables.Designer.cs">
+      <DependentUpon>201908062247559_Initial_create_tables.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Client.cs" />
@@ -187,13 +163,14 @@
     <Compile Include="Models\Room.cs" />
     <Compile Include="Models\Turno.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SharedKernel\Estado.cs" />
     <Compile Include="SharedKernel\Gender.cs" />
     <Compile Include="SharedKernel\TipoEspecialidad.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\vet.mdf" />
-    <Content Include="App_Data\vet_log.ldf">
-      <DependentUpon>vet.mdf</DependentUpon>
+    <Content Include="App_Data\vete.mdf" />
+    <Content Include="App_Data\vete_log.ldf">
+      <DependentUpon>vete.mdf</DependentUpon>
     </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -275,26 +252,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201906062309012_Initial-Create.resx">
-      <DependentUpon>201906062309012_Initial-Create.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201906070106388_AddRoomMetada.resx">
-      <DependentUpon>201906070106388_AddRoomMetada.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201906211330260_Initial-Create2.resx">
-      <DependentUpon>201906211330260_Initial-Create2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201906211856013_Initial-Create3.resx">
-      <DependentUpon>201906211856013_Initial-Create3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201906211934576_Initial-Create4.resx">
-      <DependentUpon>201906211934576_Initial-Create4.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201907181808512_Initial_Create_turnos.resx">
-      <DependentUpon>201907181808512_Initial_Create_turnos.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201907182324491_Initial_create_factura.resx">
-      <DependentUpon>201907182324491_Initial_create_factura.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201908062247559_Initial_create_tables.resx">
+      <DependentUpon>201908062247559_Initial_create_tables.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

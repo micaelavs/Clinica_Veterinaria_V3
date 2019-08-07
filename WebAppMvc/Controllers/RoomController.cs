@@ -1,4 +1,5 @@
-﻿using ClientPatientManagement.Core.Model;
+﻿using log4net;
+using ClientPatientManagement.Core.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,10 @@ namespace WebAppMvc.Controllers
 {
     public class RoomController : Controller
     {
+        private static log4net.ILog Log { get; set; }
+
+        ILog log = log4net.LogManager.GetLogger(typeof(RoomController));
+
         // GET: Room/**************************/
         public ActionResult Index() //mostrar la lista en el index, en la pantalla principal
         {
@@ -27,6 +32,8 @@ namespace WebAppMvc.Controllers
         public ActionResult Create(Room model) //accion para insertar el objeto creado en el repositorio
         {
             new RepositoryRoom().Insert(model);
+            log.Debug("Datos insertados de Salas: " +"código de sala: " +  model.Id + "Localización: "+ model.Location + "Nombre de sala: " +model.Name);
+           
             return RedirectToAction("Index");
         }
 

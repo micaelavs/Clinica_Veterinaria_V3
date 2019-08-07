@@ -8,7 +8,9 @@
 <div style="color:red;">
     @ViewBag.Mensaje
 </div>
-
+<div style="color:red;">
+    @ViewBag.Mensaje2
+</div>
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
@@ -19,6 +21,12 @@
             @Html.LabelFor(model => model.TipoEspecialidad,"Tipo Especialidad", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EnumDropDownListFor(model => model.TipoEspecialidad, htmlAttributes: new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Estado, "Estado", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EnumDropDownListFor(model => model.Estado, htmlAttributes: new { @class = "form-control" })
             </div>
         </div>
 
@@ -52,8 +60,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Hora, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <input type="datetime" name="Hora" value="" />
-               @* @Html.EditorFor(model => model.Hora, new { htmlAttributes = new { @class = "form-control" } }) *@
+                <!-- <input type="datetime" name="Hora" value="" /> -->
+                @Html.EditorFor(model => model.Hora, new { htmlAttributes = new { @class = "form-control" } }) 
             </div>
         </div>
         <br />
