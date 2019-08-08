@@ -168,6 +168,26 @@ namespace WebAppMvc.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,TipoEspecialidad,Estado,Fecha,IdPaciente,IdSala,IdDoctor,Hora")] Turno turno)
         {
+
+            //buscar en la base de ese paciente, cliente si tiene un turno activo para 1 espec, si lo tiene no podrá elegir otro
+            //hasta cancelar dicho turno
+          /*  var turnoYaExistente = from t in db.Turnos
+                                   where t.IdPaciente == turno.IdPaciente &&
+                                   t.Fecha <= turno.Fecha &&
+                                   t.TipoEspecialidad == turno.TipoEspecialidad &&
+                                   t.Estado == SharedKernel.Estado.Activo
+                                   select t;
+            if (turnoYaExistente.Any())
+            {
+                ViewBag.Mensaje = "El paciente ya tiene un turno pendiente para esa especialidad, para seleccionar otro debe cancelar dicho turno";
+
+                ViewBag.IdDoctor = new SelectList(db.Doctors, "Id", "Name", turno.IdDoctor);
+                ViewBag.IdPaciente = new SelectList(db.Patients, "Id", "Name", turno.IdPaciente);
+                ViewBag.IdSala = new SelectList(db.Rooms, "Id", "Name", turno.IdSala);
+                return View(turno);
+            }*/
+
+
             if (ModelState.IsValid)
             {
                 db.Entry(turno).State = EntityState.Modified;
