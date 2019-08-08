@@ -8,11 +8,16 @@ using System.Web;
 using System.Web.Mvc;
 using WebAppMvc.Data;
 using WebAppMvc.Models;
+using log4net;
 
 namespace WebAppMvc.Controllers
 {
     public class TurnoesController : Controller
     {
+        private static log4net.ILog Log { get; set; }
+
+        ILog log = log4net.LogManager.GetLogger(typeof(TurnoesController));
+
         private VetDbContext db = new VetDbContext();
 
         // GET: Turnoes
@@ -76,7 +81,7 @@ namespace WebAppMvc.Controllers
             var turnoBuscado = from t in db.Turnos
                                where t.IdSala == turno.IdSala &&
                                t.IdDoctor == turno.IdDoctor &&
-                               t.TipoEspecialidad == turno.TipoEspecialidad && t.Estado == turno.Estado &&
+                               t.Estado == turno.Estado &&
                                t.Fecha == t.Fecha && t.Hora == turno.Hora
                                select t;
 
@@ -128,8 +133,9 @@ namespace WebAppMvc.Controllers
 
 
             if (ModelState.IsValid)
-                {
+                {   //Id,TipoEspecialidad,Estado,Fecha,IdPaciente,IdSala,IdDoctor,Hora
                     db.Turnos.Add(turno);
+                    log.Debug("Datos insertados de Turnos: " + " código de turno: " + turno.Id + " Especialidad: " + turno.TipoEspecialidad + " Estado: " + turno.Estado + " Fecha: " + turno.Fecha + " IdPaciente: " + turno.IdPaciente + " IdSala: " + turno.IdSala + " IdDoctor: " + turno.IdDoctor + " Hora: " + turno.Hora);
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
@@ -169,25 +175,7 @@ namespace WebAppMvc.Controllers
         public ActionResult Edit([Bind(Include = "Id,TipoEspecialidad,Estado,Fecha,IdPaciente,IdSala,IdDoctor,Hora")] Turno turno)
         {
 
-            //buscar en la base de ese paciente, cliente si tiene un turno activo para 1 espec, si lo tiene no podrá elegir otro
-            //hasta cancelar dicho turno
-          /*  var turnoYaExistente = from t in db.Turnos
-                                   where t.IdPaciente == turno.IdPaciente &&
-                                   t.Fecha <= turno.Fecha &&
-                                   t.TipoEspecialidad == turno.TipoEspecialidad &&
-                                   t.Estado == SharedKernel.Estado.Activo
-                                   select t;
-            if (turnoYaExistente.Any())
-            {
-                ViewBag.Mensaje = "El paciente ya tiene un turno pendiente para esa especialidad, para seleccionar otro debe cancelar dicho turno";
-
-                ViewBag.IdDoctor = new SelectList(db.Doctors, "Id", "Name", turno.IdDoctor);
-                ViewBag.IdPaciente = new SelectList(db.Patients, "Id", "Name", turno.IdPaciente);
-                ViewBag.IdSala = new SelectList(db.Rooms, "Id", "Name", turno.IdSala);
-                return View(turno);
-            }*/
-
-
+         
             if (ModelState.IsValid)
             {
                 db.Entry(turno).State = EntityState.Modified;
