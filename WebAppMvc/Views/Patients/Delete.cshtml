@@ -1,49 +1,42 @@
 ﻿@model ClientPatientManagement.Core.Model.Patient
 
-@{
-    ViewBag.Title = "Delete";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+<!DOCTYPE html>
 
-<h2>Delete</h2>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Eliminar un Paciente</title>
+    <style>
+        a:hover {
+            text-decoration: underline !important;
+        }
+    </style>
+</head>
+<body>
+    <h3>Está seguro de eliminar el Paciente?</h3>
+    <div style="background:#ffd274;">
+        <hr />
+        <dl class="dl-horizontal">
+            <dd>
+                Nombre del Cliente:    @Html.DisplayFor(model => model.Owner.FullName)
+            </dd>
 
-<h3>Está seguro de eliminar el Paciente?</h3>
-<div>
-    <h4>Patient</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Owner.FullName)
-        </dt>
+            <dd>
+                Nombre del Paciente:  @Html.DisplayFor(model => model.Name)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Owner.FullName)
-        </dd>
+            <dd>
+                Genero:  @Html.DisplayFor(model => model.Gender)
+            </dd>
+        </dl>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Gender)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Gender)
-        </dd>
-
-    </dl>
-
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
-    }
-</div>
+                <input style="border: 1px solid black; border-radius: 5px; width:264px;" type="submit" name="Eliminar" value="Eliminar" />   
+        }
+        <br />
+        <a class="linki" style="font-weight:200; border-radius: 5px; background:#ffd274; text-decoration: none; color: black;" href="~/Patients/Index">VOLVER A LA LISTA PRINCIPAL</a>
+    </div>
+</body>
+</html>

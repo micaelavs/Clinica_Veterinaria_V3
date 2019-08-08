@@ -1,48 +1,43 @@
 ﻿@model WebAppMvc.Models.Factura
 
-@{
-    ViewBag.Title = "Delete";
-}
+<!DOCTYPE html>
 
-<h2>Delete</h2>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Eliminar una Factura</title>
+    <style>
+        a:hover {
+            text-decoration: underline !important;
+        }
+    </style>
+</head>
+<body>
+    <h3>Está seguro de eliminar la siguiente factura?</h3>
+    <div style="background:#ffd274;">
+        <hr />
+        <dl class="dl-horizontal">
+            <dd>
+                Código de Turno:  @Html.DisplayFor(model => model.Turno.Id)
+            </dd>
+            <dd>
+                Fecha:  @Html.DisplayFor(model => model.Fecha)
+            </dd>
+            <dd>
+                Monto a Pagar:  @Html.DisplayFor(model => model.Monto)
+            </dd>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Factura</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Turno.Id)
-        </dt>
+        </dl>
 
-        <dd>
-            @Html.DisplayFor(model => model.Turno.Id)
-        </dd>
+        @using (Html.BeginForm())
+            {
+            @Html.AntiForgeryToken()
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Fecha)
-        </dt>
+            <input style="border: 1px solid black; border-radius: 5px; width:264px;" type="submit" name="Eliminar" value="Eliminar" />
 
-        <dd>
-            @Html.DisplayFor(model => model.Fecha)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Monto)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Monto)
-        </dd>
-
-    </dl>
-
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
-    }
-</div>
+        }
+        <br />
+        <a class="linki" style="font-weight:200; border-radius: 5px; background:#ffd274; text-decoration: none; color: black;" href="~/Facturas/Index">VOLVER A LA LISTA PRINCIPAL</a>
+    </div>
+</body>
+</html>

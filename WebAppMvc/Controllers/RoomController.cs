@@ -57,12 +57,14 @@ namespace WebAppMvc.Controllers
         public ActionResult Delete(int id) //trae la vista del formulario para editar
         {
            var room = new RepositoryRoom().GetById(id);
+            log.Debug("Datos eliminados sala: " + "código de sala: " + room.Id + "Localización: " + room.Location + "Nombre de sala: " + room.Name);
             return View(room);
         }
 
         [HttpPost]
         public ActionResult Delete2(int id) //elimina
         {
+            
             new RepositoryRoom().Delete(id);
             return RedirectToAction("Index");
         }

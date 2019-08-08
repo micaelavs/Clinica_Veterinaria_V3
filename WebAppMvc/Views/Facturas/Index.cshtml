@@ -1,45 +1,48 @@
 ﻿@model IEnumerable<WebAppMvc.Models.Factura>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Listado de Facturas";
 }
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Turno.Id)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Fecha)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Monto)
-        </th>
-        <th></th>
-    </tr>
+<table style='background:#ffd274; width: 100%;' class="table">
+    <thead>
+        <tr>
+            <th style="text-align:left; border-bottom: 1px solid black" ;>
+                @Html.DisplayNameFor(model => model.Turno.Id)
+            </th>
+            <th style="text-align:left; border-bottom: 1px solid black" ;>
+                @Html.DisplayNameFor(model => model.Fecha)
+            </th>
+            <th style="text-align:left; border-bottom: 1px solid black" ;>
+                @Html.DisplayNameFor(model => model.Monto)
+            </th>
+            <th style="text-align:left; border-bottom: 1px solid black;">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Turno.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Fecha)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Monto)
+                </td>
+                <td><a style="color: black;" href="~/Facturas/Edit/@item.Id">EDITAR</a> -- <a style="color: black;" href="~/Facturas/Delete/@item.Id">ELIMINAR</a></td>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Turno.Id)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Fecha)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Monto)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
-
+            </tr>
+        }
+        </tbody>
+        <tfoot>
+            <tr></tr>
+        </tfoot>
 </table>
+<br />
+<a class="linki" style="font-weight:200; border-radius: 5px; background:#ffd274; text-decoration: none; color: black;" href="~/Facturas/Create">CREAR UNA FACTURA</a>
+

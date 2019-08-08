@@ -54,10 +54,11 @@ namespace WebAppMvc.Controllers
         public ActionResult Create([Bind(Include = "Id,TipoEspecialidad,Estado,Fecha,IdPaciente,IdSala,IdDoctor,Hora")] Turno turno)
         {
 
-            //buscar en la base de ese paciente, cliente si tiene un turno activo, si lo tiene no podrá elegir otro
+            //buscar en la base de ese paciente, cliente si tiene un turno activo para 1 espec, si lo tiene no podrá elegir otro
             //hasta cancelar dicho turno
             var turnoYaExistente = from t in db.Turnos
                                    where t.IdPaciente == turno.IdPaciente &&
+                                   t.Fecha <= turno.Fecha &&
                                    t.TipoEspecialidad == turno.TipoEspecialidad &&
                                    t.Estado == SharedKernel.Estado.Activo
                                    select t;
@@ -71,10 +72,9 @@ namespace WebAppMvc.Controllers
                 return View(turno);
             }
 
-            //busco del turno seleccionado en la base si coinciden todas las opciones
+            //busco del turno seleccionado en la base si coinciden todas las opciones, coincide sala, doctor, hora y fecha y esp
             var turnoBuscado = from t in db.Turnos
-                               where t.IdPaciente == turno.IdPaciente &&
-                               t.IdSala == turno.IdSala &&
+                               where t.IdSala == turno.IdSala &&
                                t.IdDoctor == turno.IdDoctor &&
                                t.TipoEspecialidad == turno.TipoEspecialidad && t.Estado == turno.Estado &&
                                t.Fecha == t.Fecha && t.Hora == turno.Hora
@@ -89,8 +89,44 @@ namespace WebAppMvc.Controllers
                 ViewBag.IdSala = new SelectList(db.Rooms, "Id", "Name", turno.IdSala);
                 return View(turno);
             }
+            //el doctor esta en otra sala a esa hora y esa fecha
+            var turnoBuscado2 = from t in db.Turnos
+                               where
+                               t.IdDoctor == turno.IdDoctor &&
+                               t.Fecha == t.Fecha && t.Hora == turno.Hora
+                               select t;
 
-       
+            if (turnoBuscado2.Any())
+            {
+                ViewBag.Mensaje = "El Doctor no está disponible en esa fecha y hora";
+
+                ViewBag.IdDoctor = new SelectList(db.Doctors, "Id", "Name", turno.IdDoctor);
+                ViewBag.IdPaciente = new SelectList(db.Patients, "Id", "Name", turno.IdPaciente);
+                ViewBag.IdSala = new SelectList(db.Rooms, "Id", "Name", turno.IdSala);
+                return View(turno);
+            }
+            //la sala está ocupada a esa fecha, a esa hora
+            
+            var turnoBuscado3 = from t in db.Turnos
+                                where
+                                t.IdSala == turno.IdSala &&
+                                t.Fecha == t.Fecha && t.Hora == turno.Hora
+                                select t;
+
+            if (turnoBuscado3.Any())
+            {
+                ViewBag.Mensaje = "La Sala no está disponible a esa hora, esa fecha";
+
+                ViewBag.IdDoctor = new SelectList(db.Doctors, "Id", "Name", turno.IdDoctor);
+                ViewBag.IdPaciente = new SelectList(db.Patients, "Id", "Name", turno.IdPaciente);
+                ViewBag.IdSala = new SelectList(db.Rooms, "Id", "Name", turno.IdSala);
+                return View(turno);
+            }
+
+
+
+
+
             if (ModelState.IsValid)
                 {
                     db.Turnos.Add(turno);

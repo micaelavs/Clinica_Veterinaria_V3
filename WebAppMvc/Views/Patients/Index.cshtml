@@ -5,24 +5,24 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Listado de Pacientes</h2>
+<h2>Lista de Pacientes</h2>
 
-<table style='background:#ffd274;' class="table">
+<table style='background:#ffd274; width: 100%;'>
     <thead>
         <tr>
-            <th>
+            <th style="text-align:left; border-bottom: 1px solid black;">
                 @*@Html.DisplayNameFor(model => model.Owner.FullName) *@
                 Nombre cliente
             </th>
-            <th>
+            <th style="text-align:left; border-bottom: 1px solid black;">
                 Nombre mascota
                 @*@Html.DisplayNameFor(model => model.Name) *@
             </th>
-            <th>
+            <th style="text-align:left; border-bottom: 1px solid black;">
                 Género
                 @*@Html.DisplayNameFor(model => model.Gender)*@
             </th>
-                <th>Acciones</th>
+            <th style="text-align:left; border-bottom: 1px solid black;">Acciones</th>
         </tr>
     </thead>
     <tbody>
@@ -43,7 +43,7 @@
                 </td>
             </tr>
         }
-        </tbody>
+    </tbody>
     <tfoot>
         <tr></tr>
     </tfoot>
